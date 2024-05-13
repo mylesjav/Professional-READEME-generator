@@ -4,66 +4,48 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
 
+const generateMarkdown = require("./utils/generateMarkdown");
 
 
-const generateHTML = ({ title, description, email, github}) => {
-    return `<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
-    <body>
-        <header>
-            <div class="container">
-                <h1>The name of my project is ${title} </h1>
-                <p>${description}</p>
-                <p>Installation</p>
-                <p>Usage</p>
-                <p>Contributing</p>
-                <p>Tests</p>
-                <p>Questions</p>
-            </div>
-        </header>
-    </body>
-    </html>`;
-}
-
-inquirer.prompt([
+    inquirer.prompt([
     {
-        message: "What is title?",
+        message: "What is title of project?",
         type: "text",
         name: "title",
     },
     {
-        message: "What is description?",
+        message: "What is the description?",
         type: "text",
         name: "description",
     },{
-        message: "What is title?",
+        message: "What is installation?",
         type: "text",
-        name: "title",
+        name: "installation",
     },{
-        message: "What is title?",
-        type: "text",
-        name: "title",
+        message: "What is the license?",
+        type: "checkbox",
+        choices: ["Apache License 2.0", "GNU General Public License v3.0", "MIT License"],
+        name: "license",
     },{
-        message: "What is title?",
+        message: "What are the contribution guidelines?",
         type: "text",
-        name: "title",
+        name: "contribution_guidelines",
+    },{
+        message: "What are the test instructions?",
+        type: "text",
+        name: "test_instruction",
+    },{
+        message: "What is your GitHub username?",
+        type: "text",
+        name: "username",
+    },{
+        message: "What is your email?",
+        type: "text",
+        name: "email",
     },
 ]).then(responses => {
     console.log(responses);
-    fs.writeFile("index.html", generateHTML(responses)), (err)=> {
-        err ? console.log('Error: ${err)') : console.log("Readme saved.")
-    }
+    fs.writeFile("readme.md", generateMarkdown(responses), (err)=> {
+        err ? console.log(`Error: ${err}`) : console.log("Readme saved.");
+    });
 });
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
-
-// TODO: Create a function to initialize app
-function init() {}
-
-// Function call to initialize app
-init();
