@@ -1,17 +1,14 @@
 // TODO: Create a function that returns a license badge based on which license is passed in
 // If there is no license, return an empty string
 function renderLicenseBadge(license) {
-  console.log(license);
   switch (license) {
     case "Apache":
       return "https://img.shields.io/github/license/saltstack/salt";
-      break;
     case "Gnu":
         return "https://img.shields.io/badge/License-GNU%20GPL-blue";
-        break;
     case "MIT":
           return "https://img.shields.io/badge/license-MIT-blue";
-          break;
+        
   }
 }
 
@@ -46,36 +43,56 @@ function renderLicenseSection(license) {
 
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
-  return `# ${data.title}
+ const responses = {
+  title: data.title,
+  description: data.description, 
+  installation: data.installation,
+  license: data.license,
+  contribution_guidelines: data.contribution_guidelines,
+  test_instruction: data.test_instruction,
+  username: data.username,
+  email: data.email,
+  };
 
+  return `# ${responses.title}
 
+## Description
 
+${responses.description}
 
+## Table of Contents
 
-## title
+- [Installation](#${responses.installation})
+- [Usage](#${responses.username})
+- [Contribution Guidelines](#${responses.contribution_guidelines})
+- [Tests](#${responses.test_instruction})
+- [Questions](#${responses.questions})
 
+## Installation
 
-## ${data.description} 
+${responses.installation}
 
-  
+## Usage
 
-  ## Table of Contents 
+${responses.username}
 
-  * ${data.installation}(#installation)
+## Contribution Guidelines
 
-  * [Usage](#usage)
-  
-  * [Contribution_guidelines](#contribution_guidelines)
+${responses.contribution_guidelines}
 
-  * [Test_instruction](#test_instruction)
+## Tests
 
-  * [Questions](#questions)
+${responses.test_instruction}
 
-  My username is ## username 
+## Questions
 
-  My email is ## email
+${responses.questions}
 
-  `;
+## License
+
+${renderLicenseSection(responses.license)}
+
+`;
 }
   
   module.exports = generateMarkdown;
